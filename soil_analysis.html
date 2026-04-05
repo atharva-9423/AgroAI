@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Analysis Report — AgroAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="analysis.css">
+    <style>
+        /* Specific overrides for soil analysis if needed */
+        .suitable-crops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .sc-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        .sc-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        .sc-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-base);
+        }
+        .sc-score {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+        .sc-bar-wrap {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .sc-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Nav -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <img src="logo.png" alt="Logo" class="nav-logo">
+            <div class="nav-brand">AgroAI <span>Soil Analysis</span></div>
+        </div>
+        <div class="nav-right">
+            <div class="crop-tag" style="background: rgba(245, 162, 69, 0.15); color: #F5A245;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 12 12 17 22 12" />
+                    <polyline points="2 17 12 22 22 17" />
+                </svg>
+                Soil Sample
+            </div>
+            <div class="confidence-badge">AI Confidence: <strong>92%</strong></div>
+            <button class="btn-back" onclick="window.location.href='index.html'">← Dashboard</button>
+        </div>
+    </nav>
+
+    <!-- Main grid -->
+    <main class="report-grid">
+
+        <!-- Row 1: Responsive Hero Bento -->
+        <section class="report-card hero-img-card" id="sec-hero-img">
+            <div class="hero-image-wrap">
+                <img id="heroImg" src="" alt="Soil Sample Image">
+                <div class="hero-overlay"></div>
+                <div class="hero-scan-complete">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C5F255" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    Analysis Complete
+                </div>
+            </div>
+        </section>
+
+        <section class="report-card hero-info-card span-3" id="sec-hero-info">
+            <p class="hero-eyebrow">🌱 AI SOIL CONDITION REPORT</p>
+            <h1>Soil Quality <span>Analysis</span></h1>
+            <p class="hero-sub">Detailed physicochemical diagnostics from multi-spectral models. Soil condition is currently evaluated as <strong>Excellent</strong>.</p>
+            <div class="hero-stats">
+                <div class="h-stat"><span class="h-val">6.5</span><span class="h-label">pH Level</span></div>
+                <div class="h-divider"></div>
+                <div class="h-stat"><span class="h-val">Loam</span><span class="h-label">Texture</span></div>
+                <div class="h-divider"></div>
+                <div class="h-stat"><span class="h-val">92%</span><span class="h-label">Confidence</span></div>
+            </div>
+        </section>
+
+        <!-- 1. Soil Suitability & Parameters -->
+        <section class="report-card soil-card span-4" id="sec-soil">
+            <div class="card-header-line">
+                <div class="card-icon orange"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg></div>
+                <h2>Detailed Soil Properties</h2>
+            </div>
+            <div class="soil-gauge-row">
+                <div class="gauge-wrap">
+                    <svg viewBox="0 0 100 60" class="gauge-svg">
+                        <path d="M10 55 A45 45 0 0 1 90 55" fill="none" stroke="#2b2d31" stroke-width="12" stroke-linecap="round"/>
+                        <path d="M10 55 A45 45 0 0 1 90 55" fill="none" stroke="#C5F255" stroke-width="12" stroke-linecap="round" stroke-dasharray="141" stroke-dashoffset="14" class="gauge-progress"/>
+                    </svg>
+                    <div class="gauge-val">90%</div>
+                    <div class="gauge-label">Quality Index</div>
+                </div>
+                <div class="soil-params">
+                    <div class="soil-param-row"><span>Nitrogen (N)</span><span class="soil-val warn">Medium-Low</span></div>
+                    <div class="soil-param-row"><span>Phosphorus (P)</span><span class="soil-val good">High ✅</span></div>
+                    <div class="soil-param-row"><span>Potassium (K)</span><span class="soil-val good">Optimal ✅</span></div>
+                    <div class="soil-param-row"><span>Organic Matter</span><span class="soil-val good">4.2%</span></div>
+                    <div class="soil-param-row"><span>Drainage</span><span class="soil-val good">Excellent</span></div>
+                    <div class="soil-param-row"><span>Moisture Content</span><span class="soil-val">45%</span></div>
+                </div>
+            </div>
+            <div class="tip-box">💡 Add nitrogen-rich amendments to balance macronutrients.</div>
+        </section>
+
+        <!-- 2. Fertilizer Recommendation -->
+        <section class="report-card fertilizer-card span-4" id="sec-fertilizer">
+            <div class="card-header-line">
+                <div class="card-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m8 8 4-6 4 6"/><rect x="3" y="14" width="18" height="7" rx="1"/></svg></div>
+                <h2>Recommended Amendments & Fertilizers</h2>
+            </div>
+            <div class="fert-grid">
+                <div class="fert-item">
+                    <div class="fert-circle n">N</div>
+                    <div class="fert-info">
+                        <span class="fert-name">Urea / Compost</span>
+                        <span class="fert-dose">High Priority</span>
+                        <span class="fert-note">Soil is deficient in Nitrogen. Apply 50kg/ha or organic compost.</span>
+                    </div>
+                    <div class="fert-bar-wrap"><div class="fert-bar-fill" style="width:90%; background:#C5F255"></div></div>
+                </div>
+                <div class="fert-item">
+                    <div class="fert-circle p" style="background: rgba(255, 155, 66, 0.2); color: #FF9B42;">OM</div>
+                    <div class="fert-info">
+                        <span class="fert-name">Vermicompost</span>
+                        <span class="fert-dose">Maintenance</span>
+                        <span class="fert-note">Apply 2-3 tons/ha to maintain microbial activity and texture.</span>
+                    </div>
+                    <div class="fert-bar-wrap"><div class="fert-bar-fill" style="width:40%; background:#FF9B42"></div></div>
+                </div>
+                <div class="fert-item">
+                    <div class="fert-circle k" style="background: rgba(163, 133, 255, 0.2); color: #A385FF;">pH</div>
+                    <div class="fert-info">
+                        <span class="fert-name">No Lime Needed</span>
+                        <span class="fert-dose">Neutral pH (6.5)</span>
+                        <span class="fert-note">Current pH is ideal for most major crops. Avoid liming.</span>
+                    </div>
+                    <div class="fert-bar-wrap"><div class="fert-bar-fill" style="width:10%; background:#A385FF"></div></div>
+                </div>
+            </div>
+            <div class="tip-box">💡 Always incorporate organic matter at least 2 weeks before sowing.</div>
+        </section>
+
+
+        <!-- 3. Suitable Crops -->
+        <section class="report-card growth-card span-4" id="sec-suitable">
+            <div class="card-header-line">
+                <div class="card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5-5 5-10 5-10S17 2 12 2 7 12 7 12s0 5 5 10z"/></svg></div>
+                <h2>Suitable Crops for this Soil</h2>
+                <span class="plan-duration">Climate Matched</span>
+            </div>
+            <p class="section-note good-note">✅ The loamy texture and neutral pH support a wide variety of crops.</p>
+            <div class="suitable-crops-grid">
+                <div class="sc-card">
+                    <div class="sc-icon">🌽</div>
+                    <div class="sc-name">Corn / Maize</div>
+                    <div class="sc-score">95% Match</div>
+                    <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:0%; background:#C5F255" data-width="95%"></div></div>
+                </div>
+                <div class="sc-card">
+                    <div class="sc-icon">🌾</div>
+                    <div class="sc-name">Wheat</div>
+                    <div class="sc-score">88% Match</div>
+                    <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:0%; background:#C5F255" data-width="88%"></div></div>
+                </div>
+                <div class="sc-card">
+                    <div class="sc-icon">🥔</div>
+                    <div class="sc-name">Potatoes</div>
+                    <div class="sc-score">85% Match</div>
+                    <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:0%; background:#FF9B42" data-width="85%"></div></div>
+                </div>
+                <div class="sc-card">
+                    <div class="sc-icon">🥜</div>
+                    <div class="sc-name">Soybeans</div>
+                    <div class="sc-score">80% Match</div>
+                    <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:0%; background:#FF9B42" data-width="80%"></div></div>
+                </div>
+                <div class="sc-card">
+                    <div class="sc-icon">🍅</div>
+                    <div class="sc-name">Tomatoes</div>
+                    <div class="sc-score">75% Match</div>
+                    <div class="sc-bar-wrap"><div class="sc-bar-fill" style="width:0%; background:#FF9B42" data-width="75%"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Climate Conditions -->
+        <section class="report-card climate-card span-4" id="sec-climate">
+            <div class="card-header-line">
+                <div class="card-icon yellow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div>
+                <h2>Climate & Regional Alignment</h2>
+            </div>
+            <div class="climate-compare" style="max-width: 600px; gap: 40px;">
+                <div class="climate-col current">
+                    <h3>Current Region (India)</h3>
+                    <div class="climate-param"><span>Temperature Avg</span><strong class="good">24–32°C ✅</strong></div>
+                    <div class="climate-param"><span>Water Retention</span><strong class="good">Optimal</strong></div>
+                    <div class="climate-param"><span>Evaporative Loss</span><strong class="warn">Moderate</strong></div>
+                </div>
+                <div class="climate-divider"></div>
+                <div class="climate-col ideal">
+                    <h3>Soil Synergy</h3>
+                    <div class="climate-param"><span>Tillage</span><strong>Easy (Loam)</strong></div>
+                    <div class="climate-param"><span>Root Depth</span><strong>Unrestricted</strong></div>
+                    <div class="climate-param"><span>Frost Risk</span><strong>Low</strong></div>
+                </div>
+            </div>
+            <div class="climate-alert good-alert">
+                🌤️ Overall: Regional climate paired with this soil type offers fantastic conditions for summer crops.
+            </div>
+        </section>
+
+
+        <!-- 5. AI Recommendations -->
+        <section class="report-card ai-card span-4" id="sec-ai">
+            <div class="card-header-line">
+                <div class="card-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></div>
+                <h2>AI Recommendations Summary</h2>
+                <div class="ai-model-tag">GPT-Agro v3.5 (Soil)</div>
+            </div>
+            <div class="ai-summary-grid">
+                <div class="ai-rec positive-rec">
+                    <div class="ai-rec-icon">✅</div>
+                    <div class="ai-rec-content">
+                        <strong>Excellent Soil Quality</strong>
+                        <p>This soil exhibits a well-balanced loamy texture with good moisture retention and a neutral pH of 6.5, which is ideal for a broad range of agricultural crops.</p>
+                    </div>
+                </div>
+                <div class="ai-rec urgent-rec">
+                    <div class="ai-rec-icon">🌿</div>
+                    <div class="ai-rec-content">
+                        <strong>Address Nitrogen Deficiency</strong>
+                        <p>Nitrogen levels are currently on the lower side. Consider split applications of Urea or side-dressing with nitrogen-rich organic compost to boost initial vegetative growth for the next crop cycle.</p>
+                    </div>
+                </div>
+                <div class="ai-rec info-rec">
+                    <div class="ai-rec-icon">💧</div>
+                    <div class="ai-rec-content">
+                        <strong>Maintain Organic Matter</strong>
+                        <p>While organic matter is good at 4.2%, continuous cropping depletes it. Incorporate crop residues or apply 2-3 tons of FYM/vermicompost per hectare between seasons.</p>
+                    </div>
+                </div>
+                <div class="ai-rec positive-rec">
+                    <div class="ai-rec-icon">🌽</div>
+                    <div class="ai-rec-content">
+                        <strong>Prime for Corn & Wheat</strong>
+                        <p>Based on the physicochemical properties and local climate, this field is highly recommended for Corn (Kharif) and Wheat (Rabi) rotations, ensuring high yield and profitability.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="report-footer">
+        <div>Generated by <strong>AgroAI</strong> · Analysis ID: <code id="analysisId"></code> · <span id="reportDate"></span></div>
+        <button class="btn-back" onclick="window.location.href='index.html'">← Back to Dashboard</button>
+    </footer>
+
+    <script src="soil_analysis.js"></script>
+</body>
+</html>
